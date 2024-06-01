@@ -1,5 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Slider from "./Slider/Slider";
+import Features from "./Features/Features";
+import HowItWork from "./HowItWork/HowItWork";
 
 const Home = () => {
   return (
@@ -8,9 +10,9 @@ const Home = () => {
         <title>NanoTasker | Home</title>
       </Helmet>
 
-      <div className="banner">
-        <Slider />
-      </div>
+      <Slider />
+      <Features />
+      <HowItWork />
     </div>
   );
 };
