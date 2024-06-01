@@ -1,0 +1,11 @@
+#social_top li {
+  border: 1px solid #c738bd;
+  padding: 6px;
+  border-radius: 50%;
+  color: #c738bd;
+}
+
+#social_top li:hover {
+  background-color: #c738bd;
+  color: #fff;
+}
