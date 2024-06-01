@@ -1,0 +1,13 @@
+#menu li a {
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#menu li a.active {
+  color: #C738BD;
+}
+
+.dropdown .menu {
+  right: 0;
+}

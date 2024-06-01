@@ -24,19 +24,22 @@ const TopHeader = () => {
 
         <div>
           <ul id="social_top" className="flex items-center gap-4">
-            <Link>
+            <Link
+              target="blank"
+              to="https://web.facebook.com/profile.php?id=100015157110543"
+            >
               <li>
                 <FaFacebookF />
               </li>
             </Link>
 
-            <Link>
+            <Link target="blank" to="https://x.com/Saddam4505">
               <li>
                 <FaTwitter />
               </li>
             </Link>
 
-            <Link>
+            <Link target="blank" to="https://linkedin.com/in/developer-saddam">
               <li>
                 <FaLinkedinIn />
               </li>
