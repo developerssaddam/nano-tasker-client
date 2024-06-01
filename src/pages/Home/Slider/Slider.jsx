@@ -17,7 +17,7 @@ import img3 from "../../../assets/img3.avif";
 
 const Slider = () => {
   return (
-    <div>
+    <div className="banner_slider">
       {" "}
       <Swiper
         modules={[
