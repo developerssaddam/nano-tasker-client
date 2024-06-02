@@ -26,12 +26,16 @@ const Navbar = () => {
                 Watch-Demo
               </NavLink>
             </li>
-            <button className="font-semibold bg-primary_color text-white rounded-2xl mx-3 px-5 py-2">
-              Login
-            </button>
-            <button className="font-semibold bg-primary_color text-white rounded-2xl px-5 py-2">
-              Register
-            </button>
+            <Link to="/login">
+              <button className="font-semibold bg-primary_color text-white rounded-2xl mx-3 px-5 py-2">
+                Login
+              </button>
+            </Link>
+            <Link to="/register">
+              <button className="font-semibold bg-primary_color text-white rounded-2xl px-5 py-2">
+                Register
+              </button>
+            </Link>
           </ul>
         </div>
         <div className="dropdown">
@@ -41,14 +45,16 @@ const Navbar = () => {
           <ul
             id="menu"
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
 
             <li>
-              <NavLink to="/youtube.com">Watch-Demo</NavLink>
+              <NavLink to="https://www.youtube.com/watch?v=ZtufUJhJzao">
+                Watch-Demo
+              </NavLink>
             </li>
 
             <li>
