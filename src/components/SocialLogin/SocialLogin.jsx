@@ -1,12 +1,43 @@
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
-  const { loginWithGoogle } = useAuth();
+  const { user, loginWithGoogle } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+
+  // Login with google
+  const handleGoogleLogin = async () => {
+    loginWithGoogle().then((result) => {
+      if (result?.user) {
+        Swal.fire({
+          icon: "success",
+          text: "Login successfull!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      navigate("/dashboard");
+    });
+
+    const userInfo = {
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+      role: "Worker",
+      totalCoin: parseInt(10),
+    };
+
+    // Now save user info to db.
+    await axiosPublic.post("/users", userInfo);
+  };
 
   return (
     <div className="flex justify-center space-x-4">
       <button
-        onClick={() => loginWithGoogle()}
+        onClick={handleGoogleLogin}
         type="button"
         className="flex items-center justify-center w-full p-2 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 border-primary_color text-primary_color hover:bg-primary_color hover:text-white"
       >

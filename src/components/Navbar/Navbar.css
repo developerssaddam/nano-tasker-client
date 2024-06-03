@@ -5,7 +5,11 @@
 }
 
 #menu li a.active {
-  color: #C738BD;
+  color: #c738bd;
+}
+
+#menu li a:hover {
+  color: #c738bd;
 }
 
 .dropdown .menu {

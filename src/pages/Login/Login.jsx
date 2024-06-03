@@ -1,16 +1,61 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(true);
+  const { loginUser } = useAuth();
+  const navigate = useNavigate();
 
   // Show/Hide password
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  // handleLoginUser
+  const handleLoginUser = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    // Validation
+    if (!email || !password) {
+      return Swal.fire({
+        icon: "error",
+        text: "All fields are required!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
+    // LoginUserNow
+    loginUser(email, password)
+      .then((result) => {
+        if (result?.user) {
+          Swal.fire({
+            icon: "success",
+            title: "Login successfull!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        return Swal.fire({
+          icon: "error",
+          text: `${error.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   return (
@@ -22,7 +67,7 @@ const Login = () => {
       <div className="bg-[#EEF1F4] flex justify-center items-center min-h-[550px]">
         <div className="w-full max-w-sm p-8 space-y-3 rounded-xl bg-white text-gray-700">
           <h1 className="text-2xl font-bold text-center">Login</h1>
-          <form noValidate="" action="" className="space-y-6">
+          <form onSubmit={handleLoginUser} className="space-y-6">
             <div className="space-y-1 text-sm">
               <label className="block text-gray-400">Email</label>
               <input

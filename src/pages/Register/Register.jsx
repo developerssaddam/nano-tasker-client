@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
@@ -12,7 +12,8 @@ import SocialLogin from "../../components/SocialLogin/SocialLogin";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(true);
   const axiosPublic = useAxiosPublic();
-  const { createUser } = useAuth();
+  const { createUser, logoutUser } = useAuth();
+  const navigate = useNavigate();
 
   // Show/Hide password
   const handleShowPassword = () => {
@@ -26,7 +27,7 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-    // reset,
+    reset,
   } = useForm();
   const onSubmit = async (data) => {
     const { name, email, photo, role, password } = data;
@@ -71,6 +72,10 @@ const Register = () => {
                   showConfirmButton: false,
                   timer: 1500,
                 });
+
+                logoutUser();
+                navigate("/login");
+                reset();
               }
             });
           }
