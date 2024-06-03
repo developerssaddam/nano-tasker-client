@@ -28,21 +28,21 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+    ],
+  },
+
+  {
+    path: "/dashboard",
+    element: <UserDashboard />,
+    children: [
+      {
+        path: "/dashboard/user",
+        element: <WorkerHome />,
+      },
 
       {
-        path: "/dashboard",
-        element: <UserDashboard />,
-        children: [
-          {
-            path: "/dashboard/user",
-            element: <WorkerHome />,
-          },
-
-          {
-            path: "/dashboard/taskcreator",
-            element: <TaskCreatorHome />,
-          },
-        ],
+        path: "/dashboard/taskcreator",
+        element: <TaskCreatorHome />,
       },
     ],
   },

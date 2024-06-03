@@ -1,29 +1,8 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import "./Navbar.css";
-import useAuth from "../../hooks/useAuth";
-import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user, logoutUser } = useAuth();
-  const navigate = useNavigate();
-
-  console.log(user);
-
-  // handleLogoutUser
-  const handleLogoutUser = () => {
-    logoutUser().then(() => {
-      Swal.fire({
-        icon: "success",
-        text: "Logout successfull!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      navigate("/");
-    });
-  };
-
   return (
     <div className="navbar bg-base-100 max-w-5xl mx-auto">
       <div className="navbar-start">
@@ -46,35 +25,17 @@ const Navbar = () => {
                 Watch-Demo
               </NavLink>
             </li>
-            {user ? (
-              <>
-                <Link to="/dashboard">
-                  <button className="font-semibold bg-primary_color text-white rounded-3xl mx-3 px-6 py-2 text-base">
-                    Dashboard
-                  </button>
-                </Link>
 
-                <button
-                  onClick={handleLogoutUser}
-                  className="font-semibold bg-primary_color text-white rounded-3xl mx-3 px-6 py-2 text-base"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/login">
-                  <button className="font-semibold bg-primary_color text-white rounded-3xl mx-3 px-6 py-2 text-base">
-                    Login
-                  </button>
-                </Link>
-                <Link to="/register">
-                  <button className="font-semibold bg-primary_color text-white rounded-3xl mx-3 px-6 py-2 text-base">
-                    Register
-                  </button>
-                </Link>
-              </>
-            )}
+            <Link to="/login">
+              <button className="font-semibold bg-primary_color text-white rounded-3xl mx-3 px-6 py-2 text-base">
+                Login
+              </button>
+            </Link>
+            <Link to="/register">
+              <button className="font-semibold bg-primary_color text-white rounded-3xl mx-3 px-6 py-2 text-base">
+                Register
+              </button>
+            </Link>
           </ul>
         </div>
         <div className="dropdown">
