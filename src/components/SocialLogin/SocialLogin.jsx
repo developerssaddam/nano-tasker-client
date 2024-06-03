@@ -2,36 +2,52 @@ import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import useAllUsers from "../../hooks/useAllUsers";
 
 const SocialLogin = () => {
-  const { user, loginWithGoogle } = useAuth();
+  const { loginWithGoogle } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [users, isPending] = useAllUsers();
+
+  if (isPending) {
+    return "Loading...";
+  }
+
+  // Current role user
+  const currentUser = users.find((dbUser) => dbUser?.email === user?.email);
+  const role = currentUser?.role;
 
   // Login with google
   const handleGoogleLogin = async () => {
-    loginWithGoogle().then((result) => {
+    loginWithGoogle().then(async (result) => {
       if (result?.user) {
+        const userInfo = {
+          name: result?.user?.displayName,
+          email: result?.user?.email,
+          photo: result?.user?.photoURL,
+          role: role || "Worker",
+          totalCoin: parseInt(10),
+        };
+
+        // Now save user info to db.
+        await axiosPublic.post("/users", userInfo);
         Swal.fire({
           icon: "success",
           text: "Login successfull!",
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(
+          role === "Worker"
+            ? "/dashboard/worker"
+            : role === "TaskCreator"
+            ? "/dashboard/taskcreator"
+            : "/dashboard/admin"
+        );
       }
-      navigate("/dashboard");
     });
-
-    const userInfo = {
-      name: user?.displayName,
-      email: user?.email,
-      photo: user?.photoURL,
-      role: "Worker",
-      totalCoin: parseInt(10),
-    };
-
-    // Now save user info to db.
-    await axiosPublic.post("/users", userInfo);
   };
 
   return (

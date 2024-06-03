@@ -1,0 +1,21 @@
+#dashboard_menu ul a li {
+  margin-bottom: 2px;
+  padding: 4px 10px;
+  border-bottom: 1px solid #c738bd;
+}
+
+#dashboard_menu ul a {
+  font-size: 18px;
+  font-weight: 600;
+  color: #c738bd;
+}
+
+#dashboard_menu ul li:hover {
+  background-color: #c738bd;
+  color: #fff;
+}
+
+#dashboard_menu ul a.active li {
+  color: #fff;
+  background-color: #c738bd;
+}

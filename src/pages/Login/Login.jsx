@@ -6,11 +6,13 @@ import { useState } from "react";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAllUsers from "../../hooks/useAllUsers";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(true);
   const { loginUser } = useAuth();
   const navigate = useNavigate();
+  const [users] = useAllUsers();
 
   // Show/Hide password
   const handleShowPassword = () => {
@@ -45,7 +47,18 @@ const Login = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate("/dashboard");
+
+          const currentUser = users.find(
+            (user) => user?.email === result?.user?.email
+          );
+          const role = currentUser?.role;
+          navigate(
+            role === "Worker"
+              ? "/dashboard/worker"
+              : role === "TaskCreator"
+              ? "/dashboard/taskcreator"
+              : "/dashboard/admin"
+          );
         }
       })
       .catch((error) => {
