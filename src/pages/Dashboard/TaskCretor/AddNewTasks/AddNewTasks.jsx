@@ -70,7 +70,7 @@ const AddNewTasks = () => {
       }
     );
 
-    // Now save data to db
+    // Create newTask objectData
     if (res.data.success) {
       const newTask = {
         title,
@@ -85,10 +85,11 @@ const AddNewTasks = () => {
         time: moment().format("h:mm:ss a"),
       };
 
+      // Now save data to db
       await axiosSecure.post("/task/create", newTask).then((res) => {
         if (res?.data?.acknowledged) {
           axiosSecure
-            .put("/users/singleuser", {
+            .put("/users/taskcreator", {
               email: user?.email,
               updatedCoin: availableCoin - totalPayableCoin,
             })
