@@ -18,7 +18,7 @@ const TopHeader = () => {
 
           <div className="flex gap-2 items-center text-gray-400 hover:text-primary_color">
             <FaMoneyBill1Wave />
-            <p>Deposit a minimum of $50 and get an extra 30% bonus</p>
+            <p>Join here and get 10 to 50 coin bonus!</p>
           </div>
         </div>
 

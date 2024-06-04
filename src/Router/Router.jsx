@@ -17,6 +17,9 @@ import AdminHome from "../pages/Dashboard/Admin/AdminHome/AdminHome";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageTask from "../pages/Dashboard/Admin/ManageTask/ManageTask";
 import Dashboard from "../layout/Dashboard";
+import WorkerPrivateRoute from "./WorkerPrivateRoute";
+import TaskCreatorPrivateRoute from "./TaskCreatorPrivateRoute";
+import AdminPrivateRoute from "./AdminPrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -53,52 +56,96 @@ const router = createBrowserRouter([
       // User-Routes
       {
         path: "/dashboard/worker",
-        element: <WorkerHome />,
+        element: (
+          <WorkerPrivateRoute>
+            <WorkerHome />
+          </WorkerPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/tasklist",
-        element: <TaskList />,
+        element: (
+          <WorkerPrivateRoute>
+            <TaskList />
+          </WorkerPrivateRoute>
+        ),
       },
 
       {
         path: "/dashboard/mysubmission",
-        element: <MySubmissions />,
+        element: (
+          <WorkerPrivateRoute>
+            <MySubmissions />
+          </WorkerPrivateRoute>
+        ),
       },
 
       // TaskCreator-Routes
       {
         path: "/dashboard/taskcreator",
-        element: <TaskCreatorHome />,
+        element: (
+          <TaskCreatorPrivateRoute>
+            <TaskCreatorHome />
+          </TaskCreatorPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/addnewtask",
-        element: <AddNewTasks />,
+        element: (
+          <TaskCreatorPrivateRoute>
+            <AddNewTasks />
+          </TaskCreatorPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/mytasks",
-        element: <MyTasks />,
+        element: (
+          <TaskCreatorPrivateRoute>
+            <MyTasks />
+          </TaskCreatorPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/purchasecoin",
-        element: <PurchaseCoin />,
+        element: (
+          <TaskCreatorPrivateRoute>
+            <PurchaseCoin />
+          </TaskCreatorPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/payment/history",
-        element: <PaymentHistory />,
+        element: (
+          <TaskCreatorPrivateRoute>
+            <PaymentHistory />
+          </TaskCreatorPrivateRoute>
+        ),
       },
 
       // Admin-Routes
       {
         path: "/dashboard/admin",
-        element: <AdminHome />,
+        element: (
+          <AdminPrivateRoute>
+            <AdminHome />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/manageusers",
-        element: <ManageUsers />,
+        element: (
+          <AdminPrivateRoute>
+            <ManageUsers />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "/dashboard/managetask",
-        element: <ManageTask />,
+        element: (
+          <AdminPrivateRoute>
+            <ManageTask />
+          </AdminPrivateRoute>
+        ),
       },
     ],
   },
