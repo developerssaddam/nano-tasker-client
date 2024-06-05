@@ -2,21 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoIosNotifications } from "react-icons/io";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
-import useAllUsers from "../../../hooks/useAllUsers";
+import useSingleUser from "../../../hooks/useSingleUser";
 
 const DsahboardNavbar = () => {
   const { logoutUser } = useAuth();
   const navigate = useNavigate();
-  const [users, isPending] = useAllUsers();
-  const { user } = useAuth();
+  const { singleUser, isPending } = useSingleUser();
 
   if (isPending) {
     return "Loading...";
   }
-
-  // Get current user.
-  const currentUser = users.find((dbUser) => dbUser?.email === user?.email);
-
   // LogoutUser
   const userLogout = () => {
     logoutUser().then(() => {
@@ -33,7 +28,7 @@ const DsahboardNavbar = () => {
 
   return (
     <div className="bg-slate-300">
-      <div className="flex justify-between navbar items-center">
+      <div className="flex justify-between py-2 items-center">
         <div className="">
           <Link to="/">
             <h1 className="text-lg md:text-3xl font-semibold md:font-bold text-gray-600">
@@ -41,20 +36,25 @@ const DsahboardNavbar = () => {
             </h1>
           </Link>
         </div>
-        <div className="flex items-center">
-          <div className="text-xs md:text-base md:font-semibold text-gray-600">
-            <h2>Balance: {currentUser?.totalCoin}</h2>
-            <h2>{currentUser?.role}</h2>
+        <div className="flex items-center md:gap-2">
+          <div className="text-base font-semibold text-gray-600">
+            <h2>
+              Balance:{" "}
+              <span className="text-primary_color">
+                {singleUser?.totalCoin}
+              </span>{" "}
+            </h2>
+            <h2>{singleUser?.role}</h2>
           </div>
 
           <div className="flex flex-col items-center">
-            <div className="dropdown btn-sm btn-ghost btn-circle">
+            <div className="dropdown btn-xs btn-ghost btn-circle">
               <img
                 tabIndex={0}
                 role="button"
-                className="w-10 rounded-full"
+                className="w-full h-full rounded-full"
                 alt="profile"
-                src={currentUser?.photo}
+                src={singleUser?.photo}
               />
               <ul
                 tabIndex={0}
@@ -66,7 +66,7 @@ const DsahboardNavbar = () => {
               </ul>
             </div>
             <h2 className="text-center text-xs md:text-base">
-              {currentUser?.name}
+              {singleUser?.name}
             </h2>
           </div>
 

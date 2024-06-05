@@ -1,18 +1,14 @@
 import { NavLink } from "react-router-dom";
 import "./DashboardMenu.css";
-import useAuth from "../../../hooks/useAuth";
-import useAllUsers from "../../../hooks/useAllUsers";
+import useSingleUser from "../../../hooks/useSingleUser";
 
 const DashboardMenu = () => {
-  const { user } = useAuth();
-  const [users, isPending] = useAllUsers();
-
+  const { singleUser, isPending } = useSingleUser();
   if (isPending) {
     return "Loading";
   }
-
-  const currentUser = users.find((dbUser) => dbUser?.email === user?.email);
-  const role = currentUser?.role;
+  // get current user role.
+  const role = singleUser?.role;
 
   return (
     <div id="dashboard_menu">

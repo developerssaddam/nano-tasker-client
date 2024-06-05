@@ -6,15 +6,17 @@ const useSingleUser = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: singleUser, isPending } = useQuery({
-    queryKey: ["user", user.email],
+  const { data: singleUser, isPending, refetch,} = useQuery({
+    queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users/singleuser?email=${user?.email}`);
+      const res = await axiosSecure.get(
+        `/users/singleuser?email=${user?.email}`
+      );
       return res.data;
     },
   });
 
-  return {singleUser, isPending};
+  return { singleUser, isPending, refetch };
 };
 
 export default useSingleUser;

@@ -20,6 +20,7 @@ import Dashboard from "../layout/Dashboard";
 import WorkerPrivateRoute from "./WorkerPrivateRoute";
 import TaskCreatorPrivateRoute from "./TaskCreatorPrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import UpdateMytask from "../pages/Dashboard/TaskCretor/MyTasks/UpdateMytask";
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,14 @@ const router = createBrowserRouter([
         element: (
           <TaskCreatorPrivateRoute>
             <PaymentHistory />
+          </TaskCreatorPrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/update/mytask/:id",
+        element: (
+          <TaskCreatorPrivateRoute>
+            <UpdateMytask />
           </TaskCreatorPrivateRoute>
         ),
       },

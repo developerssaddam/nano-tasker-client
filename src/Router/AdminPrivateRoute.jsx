@@ -1,11 +1,9 @@
-import useAllUsers from "../hooks/useAllUsers";
-import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import loaderImg from "../assets/loading.gif";
+import useSingleUser from "../hooks/useSingleUser";
 
 const AdminPrivateRoute = ({ children }) => {
-  const [users, isPending] = useAllUsers();
-  const { user } = useAuth();
+  const { singleUser, isPending } = useSingleUser();
 
   if (isPending) {
     return (
@@ -15,9 +13,8 @@ const AdminPrivateRoute = ({ children }) => {
     );
   }
 
-  // current user
-  const currentUser = users.find((dbUser) => dbUser?.email === user?.email);
-  const role = currentUser?.role;
+  // current user role
+  const role = singleUser?.role;
 
   // Validation user.
   if (role !== "Admin") {

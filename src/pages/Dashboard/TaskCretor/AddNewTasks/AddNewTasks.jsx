@@ -11,8 +11,11 @@ const AddNewTasks = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const { singleUser } = useSingleUser();
+  const { singleUser, isPending, refetch } = useSingleUser();
 
+  if (isPending) {
+    return "Loading...";
+  }
   // handleAddNewTask
   const handleAddNewTask = async (e) => {
     e.preventDefault();
@@ -89,12 +92,14 @@ const AddNewTasks = () => {
       await axiosSecure.post("/task/create", newTask).then((res) => {
         if (res?.data?.acknowledged) {
           axiosSecure
-            .put("/users/taskcreator", {
+            .put("/users/updatecoin/task/create", {
               email: user?.email,
               updatedCoin: availableCoin - totalPayableCoin,
             })
             .then((res) => {
               if (res?.data?.acknowledged) {
+                form.reset();
+                refetch();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",

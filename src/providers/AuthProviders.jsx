@@ -9,14 +9,14 @@ import {
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 import auth from "../firebaseConfig/firebaseConfig";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext();
 
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   // Social login providers
   const googleProvider = new GoogleAuthProvider();
@@ -53,24 +53,26 @@ const AuthProviders = ({ children }) => {
   // observation function here
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+
+      // Create accesstoken for login user.
       if (user) {
-        setUser(user);
-        // Access token set to localStorage.
-        axiosSecure.post(`/jwt/create?email=${user.email}`).then((res) => {
-          const token = res.data.token;
-          localStorage.setItem("accessToken", token);
+        axiosPublic.post(`/jwt/create?email=${user?.email}`).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("accessToken", res.data.token);
+          }
         });
       } else {
         localStorage.removeItem("accessToken");
-        setUser(null);
       }
+
       setLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
-  }, [axiosSecure]);
+  }, [axiosPublic]);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
