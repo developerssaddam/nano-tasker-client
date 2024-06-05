@@ -92,7 +92,7 @@ const AddNewTasks = () => {
       await axiosSecure.post("/task/create", newTask).then((res) => {
         if (res?.data?.acknowledged) {
           axiosSecure
-            .put("/users/updatecoin/task/create", {
+            .put("/users/updatecoin/task", {
               email: user?.email,
               updatedCoin: availableCoin - totalPayableCoin,
             })
