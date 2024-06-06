@@ -21,6 +21,7 @@ import WorkerPrivateRoute from "./WorkerPrivateRoute";
 import TaskCreatorPrivateRoute from "./TaskCreatorPrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import UpdateMytask from "../pages/Dashboard/TaskCretor/MyTasks/UpdateMytask";
+import Payment from "../pages/Dashboard/TaskCretor/PurchaseCoin/Payment";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +112,14 @@ const router = createBrowserRouter([
         element: (
           <TaskCreatorPrivateRoute>
             <PurchaseCoin />
+          </TaskCreatorPrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:amount",
+        element: (
+          <TaskCreatorPrivateRoute>
+            <Payment />
           </TaskCreatorPrivateRoute>
         ),
       },
