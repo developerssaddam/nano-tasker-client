@@ -6,6 +6,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import useSingleUser from "../../../../hooks/useSingleUser";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const MyTasks = () => {
   const { user } = useAuth();
@@ -95,6 +96,9 @@ const MyTasks = () => {
 
   return (
     <div className="max-w-5xl mx-auto py-4 md:py-10">
+      <Helmet>
+        <title>Dashboard | My-Task</title>
+      </Helmet>
       <h2 className="font-bold text-2xl text-gray-600 text-center mb-3">
         My Task-List
       </h2>
@@ -137,17 +141,6 @@ const MyTasks = () => {
           </table>
         </div>
       </div>
-
-      {/* Update modal */}
-      <dialog id="taskUpdateModal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click outside to close</p>
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
     </div>
   );
 };
