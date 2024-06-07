@@ -31,17 +31,17 @@ const DsahboardNavbar = () => {
       <div className="flex justify-between py-2 items-center">
         <div className="">
           <Link to="/">
-            <h1 className="text-lg md:text-3xl font-semibold md:font-bold text-gray-600">
+            <h1 className="text-xs md:text-3xl font-semibold md:font-bold text-gray-600">
               Nano<span className="text-primary_color">Tasker</span>
             </h1>
           </Link>
         </div>
         <div className="flex items-center md:gap-2">
-          <div className="text-base font-semibold text-gray-600">
+          <div className="text-xs font-medium md:text-base md:font-semibold text-gray-600">
             <h2>
               Balance:{" "}
               <span className="text-primary_color">
-                {singleUser?.totalCoin}
+                {singleUser?.totalCoin} Coin
               </span>{" "}
             </h2>
             <h2>{singleUser?.role}</h2>
@@ -71,7 +71,7 @@ const DsahboardNavbar = () => {
           </div>
 
           <div>
-            <button className="btn btn-ghost btn-circle">
+            <button className="btn btn-sm md:btn-md btn-ghost btn-circle">
               <div className="indicator">
                 <IoIosNotifications className="text-base md:text-2xl text-info" />
                 <div className="badge bg-primary_color text-white badge-sm indicator-item">

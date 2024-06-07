@@ -22,6 +22,7 @@ import TaskCreatorPrivateRoute from "./TaskCreatorPrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import UpdateMytask from "../pages/Dashboard/TaskCretor/MyTasks/UpdateMytask";
 import Payment from "../pages/Dashboard/TaskCretor/PurchaseCoin/Payment";
+import TaskDetails from "../pages/Dashboard/Worker/TaskDetails/TaskDetails";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,15 @@ const router = createBrowserRouter([
         element: (
           <WorkerPrivateRoute>
             <MySubmissions />
+          </WorkerPrivateRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/task/details/:id",
+        element: (
+          <WorkerPrivateRoute>
+            <TaskDetails />
           </WorkerPrivateRoute>
         ),
       },
