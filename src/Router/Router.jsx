@@ -23,6 +23,7 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import UpdateMytask from "../pages/Dashboard/TaskCretor/MyTasks/UpdateMytask";
 import Payment from "../pages/Dashboard/TaskCretor/PurchaseCoin/Payment";
 import TaskDetails from "../pages/Dashboard/Worker/TaskDetails/TaskDetails";
+import WithDrawals from "../pages/Dashboard/Worker/WithDrawals/WithDrawals";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,15 @@ const router = createBrowserRouter([
         element: (
           <WorkerPrivateRoute>
             <TaskDetails />
+          </WorkerPrivateRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/widrow/coin",
+        element: (
+          <WorkerPrivateRoute>
+            <WithDrawals />
           </WorkerPrivateRoute>
         ),
       },

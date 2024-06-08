@@ -26,6 +26,10 @@ const DashboardMenu = () => {
             <NavLink to="/dashboard/mysubmission">
               <li>My Submissions</li>
             </NavLink>
+
+            <NavLink to="/dashboard/widrow/coin">
+              <li>WithDraw Coin</li>
+            </NavLink>
           </>
         ) : role === "TaskCreator" ? (
           <>
