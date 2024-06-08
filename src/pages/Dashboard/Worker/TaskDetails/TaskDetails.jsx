@@ -64,7 +64,7 @@ const TaskDetails = () => {
       creator_email,
       submissionInfo,
       date: moment().format("MMM Do YY"),
-      status: "pending",
+      status: "Pending",
     };
 
     // Now data save to submission collection
