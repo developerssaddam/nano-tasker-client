@@ -2,10 +2,20 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Chart from "../../../../components/Chart/Chart";
 
 const WorkerHome = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+
+  // Load worker stats data.
+  const { data: chartData = [] } = useQuery({
+    queryKey: ["workerStats"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/worker/stats/${user?.email}`);
+      return res.data;
+    },
+  });
 
   // Load mySubmissionData
   const { data: myApproveSubmission, isPending } = useQuery({
@@ -27,6 +37,11 @@ const WorkerHome = () => {
       <Helmet>
         <title>Dashboard | Worker-Home</title>
       </Helmet>
+
+      <div className="flex justify-center mb-5 md:mb10">
+        <Chart chartData={chartData} />
+      </div>
+
       <h2 className="font-bold text-2xl text-gray-600 text-center mb-3">
         My Submission Approve-List
       </h2>

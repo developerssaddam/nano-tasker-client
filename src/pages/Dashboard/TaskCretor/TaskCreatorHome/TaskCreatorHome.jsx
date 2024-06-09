@@ -1,14 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import Chart from "../../../../components/Chart/Chart";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import Chart from "../../../../components/Chart/Chart";
 
 const TaskCreatorHome = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [singleSubmission, getSingleSubmission] = useState({});
+
+  // Load chart data.
+  const { data: chartData = [] } = useQuery({
+    queryKey: ["chartData"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/taskcreator/stats/${user?.email}`);
+      return res.data;
+    },
+  });
 
   // Load all data which is status is pending
   const {
@@ -19,7 +28,7 @@ const TaskCreatorHome = () => {
     queryKey: ["myTask", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/mytask/worker/submission?email=${user?.email}`
+        `/mytask/worker/submission/status/pending?email=${user?.email}`
       );
       return res.data;
     },
@@ -83,7 +92,7 @@ const TaskCreatorHome = () => {
   return (
     <div className="max-w-5xl mx-auto md:py-10">
       <div className="states_area flex justify-center md:mb-5">
-        <Chart />
+        <Chart chartData={chartData} />
       </div>
 
       <div className="review_table">

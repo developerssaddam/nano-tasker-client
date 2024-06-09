@@ -38,7 +38,7 @@ const TaskDetails = () => {
   } = singleTask;
 
   // handleSubmissionDetails
-  const handleSubmissionDetails = (e) => {
+  const handleSubmissionDetails = async (e) => {
     e.preventDefault();
     const submissionInfo = e.target.submissionInfo?.value;
 
@@ -68,7 +68,7 @@ const TaskDetails = () => {
     };
 
     // Now data save to submission collection
-    axiosSecure.post("/submission/create", submissionDetails).then((res) => {
+   await axiosSecure.post("/submission/create", submissionDetails).then((res) => {
       if (res.data.acknowledged) {
         Swal.fire({
           position: "top-end",

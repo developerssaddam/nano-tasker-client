@@ -30,7 +30,7 @@ const useAxiosSecure = () => {
     },
     function (error) {
       const status = error.response.status;
-      if (status === 401 || status === 403) {
+      if (status === 401 || status === 400 || status === 403) {
         logoutUser().then(() => {
           Swal.fire({
             text: "Forbidden access!",

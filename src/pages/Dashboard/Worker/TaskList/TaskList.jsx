@@ -19,6 +19,9 @@ const TaskList = () => {
     return;
   }
 
+  // Get quantity > 0 task data
+  const tasks = allTask.filter((task) => task.quantity > 0);
+
   return (
     <div className="my-10">
       <Helmet>
@@ -30,7 +33,7 @@ const TaskList = () => {
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-        {allTask.map((task, index) => (
+        {tasks.map((task, index) => (
           <div
             key={index}
             className="task_item border border-primary_color rounded-lg shadow-md"
