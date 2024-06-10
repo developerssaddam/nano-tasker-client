@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import Chart from "../../../../components/Chart/Chart";
+import moment from "moment";
 
 const TaskCreatorHome = () => {
   const { user } = useAuth();
@@ -47,20 +48,81 @@ const TaskCreatorHome = () => {
   };
 
   // handleSubmissionApprove
-  const handleSubmissionApprove = async (id) => {
-    await axiosSecure.get(`/single/submission/data?id=${id}`).then((res) => {
-      if (res.data) {
-        axiosSecure
-          .patch("/update/worker/totalcoin/and/submission/approve", res.data)
+  const handleSubmissionApprove = (task) => {
+    // NotificationData
+    const newNotification = {
+      message: `You have earned ${task?.amount} coin from ${task?.creator_name} for
+      completing ${task?.title}`,
+      ToEmail: `${task?.worker_email}`,
+      Time: moment().format("MMMM Do YYYY, h:mm"),
+    };
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to approve this task!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, approve it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axiosSecure
+          .get(`/single/submission/data?id=${task._id}`)
           .then((res) => {
-            if (
-              res.data?.increaseWorkerTotalCoin?.acknowledged &&
-              res.data?.updateStatus?.acknowledged
-            ) {
+            if (res.data) {
+              axiosSecure
+                .patch(
+                  "/update/worker/totalcoin/and/submission/approve",
+                  res.data
+                )
+                .then((res) => {
+                  if (
+                    res.data?.increaseWorkerTotalCoin?.acknowledged &&
+                    res.data?.updateStatus?.acknowledged
+                  ) {
+                    axiosSecure
+                      .post("/notification", newNotification)
+                      .then((res) => {
+                        if (res.data.acknowledged) {
+                          Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            text: "You have successfully approve this submission!",
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                          refetch();
+                        }
+                      });
+                  }
+                });
+            }
+          });
+      }
+    });
+  };
+
+  // handleSubmissionReject
+  const handleSubmissionReject = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to rejected this task!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, rejected it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axiosSecure
+          .patch("/update/worker/status/rejected", { id })
+          .then((res) => {
+            if (res.data.acknowledged) {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                text: "You have successfully approve this submission!",
+                text: "You have successfully rejected this submission!",
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -69,24 +131,6 @@ const TaskCreatorHome = () => {
           });
       }
     });
-  };
-
-  // handleSubmissionReject
-  const handleSubmissionReject = async (id) => {
-    await axiosSecure
-      .patch("/update/worker/status/rejected", { id })
-      .then((res) => {
-        if (res.data.acknowledged) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            text: "You have successfully rejected this submission!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          refetch();
-        }
-      });
   };
 
   return (
@@ -127,7 +171,7 @@ const TaskCreatorHome = () => {
                       View
                     </button>
                     <button
-                      onClick={() => handleSubmissionApprove(task._id)}
+                      onClick={() => handleSubmissionApprove(task)}
                       className="btn btn-sm bg-green-500 text-white"
                     >
                       Approve

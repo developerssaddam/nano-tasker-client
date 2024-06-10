@@ -2,11 +2,14 @@ import { Outlet } from "react-router-dom";
 import DsahboardNavbar from "../components/UserDashboard/DashboardNavbar/DsahboardNavbar";
 import DashboardMenu from "../components/UserDashboard/DsahboardMenu/DashboardMenu";
 import Footer from "../components/Footer/Footer";
+import useAuth from "../hooks/useAuth";
+import Navbar from "../components/Navbar/Navbar";
 
 const Dashboard = () => {
+  const { user } = useAuth();
   return (
     <div>
-      <DsahboardNavbar />
+      {user ? <DsahboardNavbar /> : <Navbar />}
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-2/6 lg:w-1/5 bg-[#EEF1F4] md:min-h-screen p-2 lg:p-5">
           <DashboardMenu />

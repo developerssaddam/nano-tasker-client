@@ -154,7 +154,7 @@ const AddNewTasks = () => {
             </div>
 
             <div className="space-y-1 text-sm relative">
-              <label className="block text-gray-400">Payable-Amount</label>
+              <label className="block text-gray-400">Payable-Coin</label>
               <input
                 type="number"
                 name="amount"

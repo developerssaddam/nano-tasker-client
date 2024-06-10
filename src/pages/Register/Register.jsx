@@ -76,6 +76,7 @@ const Register = () => {
                 logoutUser();
                 navigate("/login");
                 reset();
+                window.location.reload();
               }
             });
           }
