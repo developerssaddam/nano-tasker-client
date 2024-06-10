@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import moment from "moment";
 import Swal from "sweetalert2";
+import Countdown from "react-countdown";
 
 const TaskDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -68,23 +69,30 @@ const TaskDetails = () => {
     };
 
     // Now data save to submission collection
-   await axiosSecure.post("/submission/create", submissionDetails).then((res) => {
-      if (res.data.acknowledged) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          text: "Your have successfully submit the task!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        e.target.reset();
-        navigate("/dashboard/tasklist");
-      }
-    });
+    await axiosSecure
+      .post("/submission/create", submissionDetails)
+      .then((res) => {
+        if (res.data.acknowledged) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            text: "Your have successfully submit the task!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          e.target.reset();
+          navigate("/dashboard/tasklist");
+        }
+      });
   };
 
+  // CountDoun Timer
+  const dateLine = singleTask.date;
+  const dateObject = new Date(dateLine);
+  const timeDue = dateObject.getTime();
+
   return (
-    <div className="max-w-5xl mx-auto py-10">
+    <div className="max-w-4xl mx-auto py-10">
       <Helmet>
         <title>Dashboard | Task-Details</title>
       </Helmet>
@@ -99,6 +107,10 @@ const TaskDetails = () => {
           src={photo}
           alt=""
         />
+
+        <div className="flex justify-end text-xl font-semibold text-primary_color my-5">
+          <Countdown date={timeDue} />
+        </div>
 
         <div className="p-1 md:p-0">
           {/* row */}
@@ -206,7 +218,6 @@ const TaskDetails = () => {
             </div>
           </div>
         </div>
-
         <div className="w-full space-y-3 my-5 md:my-8">
           <form onSubmit={handleSubmissionDetails} className="space-y-6">
             <div className="space-y-1">
