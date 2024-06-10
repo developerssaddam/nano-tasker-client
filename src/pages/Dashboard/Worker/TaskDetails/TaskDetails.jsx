@@ -36,6 +36,7 @@ const TaskDetails = () => {
     date,
     creator_name,
     creator_email,
+    submissionInfo,
   } = singleTask;
 
   // handleSubmissionDetails
@@ -184,6 +185,21 @@ const TaskDetails = () => {
               <p className="text-sm md:text-lg font-medium text-gray-500">
                 {" "}
                 : {date}
+              </p>
+            </div>
+          </div>
+
+          {/* row */}
+          <div className="flex mb-3 gap-5 ">
+            <div className="w-1/6">
+              <h1 className="text-base md:text-xl font-semibold text-gray-700">
+                What is submit{" "}
+              </h1>
+            </div>
+            <div className="w-5/6">
+              <p className="text-sm md:text-lg font-medium text-gray-500">
+                {" "}
+                : {submissionInfo}
               </p>
             </div>
           </div>
