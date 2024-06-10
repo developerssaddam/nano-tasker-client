@@ -11,15 +11,6 @@ const MySubmissions = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [perPageData, setPerPageData] = useState([]);
 
-  // // Load mySubmissionData
-  // const { data: mySubmissionData, isPending } = useQuery({
-  //   queryKey: ["mySubmissionData", user?.email],
-  //   queryFn: async () => {
-  //     const res = await axiosSecure.get(`/my/submission?email=${user?.email}`);
-  //     return res.data;
-  //   },
-  // });
-
   // Load Page Count Data.
   const { data, isPending } = useQuery({
     queryKey: ["TotalPage"],
@@ -83,7 +74,7 @@ const MySubmissions = () => {
           My Submission-List
         </h2>
         <div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto min-h-[400px]">
             <table className="table">
               {/* head */}
               <thead className="bg-[#EEF1F4] text-base font-semibold">
