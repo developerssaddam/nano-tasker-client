@@ -51,6 +51,7 @@ const Register = () => {
         photo: res?.data?.data?.url,
         role,
         totalCoin: role === "Worker" ? parseInt(10) : parseInt(50),
+        total_task_completetion: 0,
       };
 
       // Register firebase

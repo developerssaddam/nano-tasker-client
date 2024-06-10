@@ -1,0 +1,12 @@
+.pagination_area button {
+  padding: 3px 12px;
+  border-radius: 3px;
+  color: #000;
+  background-color: #EEF1F4;
+  margin-right: 8px;
+}
+
+.pagination_area .active {
+  background-color: #c738bd;
+  color: #fff;
+}

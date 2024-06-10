@@ -17,6 +17,7 @@ const SocialLogin = () => {
         photo: result?.user?.photoURL,
         role: "Worker",
         totalCoin: parseInt(10),
+        total_task_completetion: 0,
       };
 
       // Now save user info to db.
@@ -28,7 +29,6 @@ const SocialLogin = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-
       navigate("/dashboard/worker");
     });
   };

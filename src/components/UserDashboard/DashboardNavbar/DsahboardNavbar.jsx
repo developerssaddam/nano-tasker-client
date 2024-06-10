@@ -136,7 +136,7 @@ const DsahboardNavbar = () => {
             </button>
           </div>
           <div>
-            {notifications.map((notification, index) => (
+            {notifications.reverse().map((notification, index) => (
               <div
                 key={index}
                 className="item border-b border-primary_color pb-2 mb-5"
